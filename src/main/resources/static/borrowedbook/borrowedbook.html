@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="borrowedbook.css">
+    <title>Ödünç Kitap Listesi</title>
+</head>
+<body>
+<header>
+    Kütüphane Yönetim Sistemi
+</header>
+<nav>
+    <a href="http://localhost:8080/staff/staff.html">Görevli İşlemleri</a>
+    <a href="http://localhost:8080/member/member.html">Üye İşlemleri</a>
+    <a href="http://localhost:8080/book/book.html">Kitap İşlemleri</a>
+    <a href="http://localhost:8080/borrowedbook/borrowedbook.html">Ödünç Kitap İşlemleri</a>
+</nav>
+<div class="container">
+<h1>ÖDÜNÇ KİTAP LİSTESİ</h1>
+    <div>
+        <button id="borrowBookButton">Ödünç Kitap Verme</button>
+        <button id="returnBookButton">Ödünç Kitap Teslim</button>
+        <table id="borrowBooksTable">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Üye Numarası</th>
+                <th>Üye Adı</th>
+                <th>Üye Soyadı</th>
+                <th>Kitap Numarası</th>
+                <th>Kitap Adı</th>
+                <th>Kitap Verilme Tarihi</th>
+                <th>Kitap Teslim Tarihi</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <div id="borrowedBookForm" class="form-container">
+        <h2>Ödünç Kitap Verme</h2>
+        <form id="borrowBookForm">
+            <label for="memberId">Üye Numarası:</label>
+            <input type="text" id="memberId" required>
+
+            <label for="bookId">Kitap Numarası:</label>
+            <input type="text" id="bookId" required>
+
+            <label for="borrowingDate">Kitap Verilme Tarihi:</label>
+            <input type="date" id="borrowingDate" required>
+
+            <label for="returnDate">Kitap Teslim Tarihi:</label>
+            <input type="date" id="returnDate" required>
+
+            <button type="button" id="borrowBookSaveButton">Kaydet</button>
+            <button type="button" id="cancelButton">İptal</button>
+        </form>
+    </div>
+</div>
+
+<script src="borrowedbook.js"></script>
+
+</body>
+</html>

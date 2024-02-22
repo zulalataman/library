@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="book.css">
+    <title>Kitap Listesi</title>
+
+</head>
+<body>
+<header>
+    Kütüphane Yönetim Sistemi
+</header>
+<nav>
+    <a href="http://localhost:8080/staff/staff.html">Görevli İşlemleri</a>
+    <a href="http://localhost:8080/member/member.html">Üye İşlemleri</a>
+    <a href="http://localhost:8080/book/book.html">Kitap İşlemleri</a>
+    <a href="http://localhost:8080/borrowedbook/borrowedbook.html">Ödünç Kitap İşlemleri</a>
+</nav>
+
+<div class="container">
+
+    <h1>KİTAP LİSTESİ</h1>
+    <div>
+        <input type="text" id="bookSearchInput" placeholder="Kitap adı giriniz...">
+        <button id="bookAddButton">Kitap Ekle</button>
+        <button id="bookDeleteButton">Kitap Sil</button>
+        <button id="bookUpdateButton">Kitap Güncelle</button>
+        <table id="booksTable">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Kitap Numarası</th>
+                <th>Kitap Adı</th>
+                <th>Yazar</th>
+                <th>Yayınevi</th>
+                <th>Adet</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <div id="bookAddForm" class="form-container">
+        <h2>Kitap Ekle</h2>
+        <form id="bookForm">
+            <label for="bookName">Kitap Adı:</label>
+            <input type="text" id="bookName" required>
+
+            <label for="writer">Yazar:</label>
+            <input type="text" id="writer" required>
+
+            <label for="publisher">Yayın Evi:</label>
+            <input type="text" id="publisher" required>
+
+            <label for="stock">Adet:</label>
+            <input type="number" id="stock" required>
+
+            <button type="button" id="bookSaveButton">Kaydet</button>
+            <button type="button" id="cancelButton">İptal</button>
+        </form>
+    </div>
+    <div id="bookUpdateForm" class="form-container">
+        <h2>Kitap Güncelle</h2>
+        <form id="updateBookForm">
+            <input type="hidden" id="updateBookId"> <!-- Ekledik: Güncellenen kitabın ID'sini saklamak için gizli bir alan -->
+
+            <label for="updateBookName">Kitap Adı:</label>
+            <input type="text" id="updateBookName" required>
+
+            <label for="updateWriter">Yazar:</label>
+            <input type="text" id="updateWriter" required>
+
+            <label for="updatePublisher">Yayın Evi:</label>
+            <input type="text" id="updatePublisher" required>
+
+            <label for="updateStock">Adet:</label>
+            <input type="number" id="updateStock" required>
+
+            <button type="button" id="bookUpdateSaveButton">Güncelle</button>
+            <button type="button" id="cancelUpdateButton">İptal</button>
+        </form>
+    </div>
+</div>
+
+<script src="book.js"></script>
+</body>
+</html>

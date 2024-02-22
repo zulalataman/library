@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="staff.css">
+    <script src="staff.js"></script>
+    <title>Görevli Listesi</title>
+</head>
+<body>
+<header>
+    Kütüphane Yönetim Sistemi
+</header>
+<nav>
+    <a href="http://localhost:8080/staff/staff.html">Görevli İşlemleri</a>
+    <a href="http://localhost:8080/member/member.html">Üye İşlemleri</a>
+    <a href="http://localhost:8080/book/book.html">Kitap İşlemleri</a>
+    <a href="http://localhost:8080/borrowedbook/borrowedbook.html">Ödünç Kitap İşlemleri</a>
+</nav>
+<div class="container">
+<h1>Görevli Listesi</h1>
+    <div>
+        <button id="staffAddButton">Görevli Ekle</button>
+        <button id="staffDeleteButton">Görevli Sil</button>
+        <button id="staffUpdateButton">Görevli Güncelle</button>
+        <table id="staffsTable">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Kullanıcı Adı</th>
+                <th>Şifre</th>
+                <th>Görev</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+    <div id="staffAddForm" class="form-container">
+        <h2>Görevli Ekle</h2>
+        <form id="staffForm">
+            <label for="staffName">Adı:</label>
+            <input type="text" id="staffName" required>
+
+            <label for="staffLastName">Soyadı:</label>
+            <input type="text" id="staffLastName" required>
+
+            <label for="userName">Kullanıcı Adı:</label>
+            <input type="text" id="userName" required>
+
+            <label for="userPassword">Kullanıcı Şifresi:</label>
+            <input type="text" id="userPassword">
+
+            <label for="staffDuty">Görevi:</label>
+            <input type="text" id="staffDuty">
+
+            <button type="button" id="staffSaveButton">Kaydet</button>
+            <button type="button" id="cancelButton">İptal</button>
+
+        </form>
+    </div>
+    <div id="staffUpdateForm" class="form-container">
+        <h2>Görevli Güncelle</h2>
+        <form id="staffFormUpdate">
+            <input type="hidden" id="updateStaffId">
+
+            <label for="staffName">Adı:</label>
+            <input type="text" id="staffNameUpdate" required>
+
+            <label for="staffLastName">Soyadı:</label>
+            <input type="text" id="staffLastNameUpdate" required>
+
+            <label for="userName">Kullanıcı Adı:</label>
+            <input type="text" id="userNameUpdate" required>
+
+            <label for="userPassword">Kullanıcı Şifresi:</label>
+            <input type="text" id="userPasswordUpdate">
+
+            <label for="staffDuty">Görevi:</label>
+            <input type="text" id="staffDutyUpdate">
+
+            <button type="button" id="staffUpdateSaveButton">Kaydet</button>
+            <button type="button" id="cancelUpdateButton">İptal</button>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>

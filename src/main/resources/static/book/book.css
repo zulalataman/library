@@ -1,0 +1,142 @@
+table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 80px auto;
+    font-family: Arial, sans-serif;
+}
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 12px;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #4CAF50;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f0f0f0;
+}
+
+#bookAddButton, #bookDeleteButton, #bookUpdateButton {
+    position: absolute;
+    top: 220px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px; /* Butonu yuvarlak yapmak için */
+    background-color: #4CAF50; /* Arka plan rengi */
+    color: #fff; /* Yazı rengi */
+    transition: background-color 0.3s ease; /* Arka plan rengi geçiş efekti */
+}
+
+#bookAddButton {
+    right: 200px; /* Sağ kenardan mesafe */
+}
+
+#bookDeleteButton {
+    right: 320px; /* Sağ kenardan mesafe */
+}
+
+#bookUpdateButton {
+    right: 430px; /* Sağ kenardan mesafe */
+}
+
+button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Buttonlar arası boşluk */
+}
+
+.form-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    text-align: left; /* Labelların sola hizalanması */
+}
+
+#bookForm, #updateBookForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* İki sütunlu grid */
+    gap: 10px; /* Sütunlar arası boşluk */
+}
+
+label {
+    margin-bottom: 5px; /* Labellar arası boşluk */
+}
+
+input {
+    width: 90%; /* Input genişliği */
+    padding: 8px; /* Input iç içe giriş mesafesi */
+    margin-bottom: 10px; /* Inputlar arası boşluk */
+}
+
+h1 {
+    text-align: center;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+header {
+    background-color: #4CAF50;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+}
+nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #333;
+    padding: 10px;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#bookSearchInput {
+    top: 220px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 600px;
+    margin-left: 50px;
+}
+
+#bookSearchInput:focus {
+    outline: none;
+    border-color: #4CAF50; /* Veya başka bir vurgu rengi belirleyebilirsiniz */
+}

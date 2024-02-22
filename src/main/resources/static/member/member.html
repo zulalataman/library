@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="member.css">
+    <script src="member.js"></script>
+    <title>Üye Listesi</title>
+</head>
+<body>
+<header>
+    Kütüphane Yönetim Sistemi
+</header>
+<nav>
+    <a href="http://localhost:8080/staff/staff.html">Görevli İşlemleri</a>
+    <a href="http://localhost:8080/member/member.html">Üye İşlemleri</a>
+    <a href="http://localhost:8080/book/book.html">Kitap İşlemleri</a>
+    <a href="http://localhost:8080/borrowedbook/borrowedbook.html">Ödünç Kitap İşlemleri</a>
+</nav>
+<div class="container">
+<h1>ÜYE LİSTESİ</h1>
+    <div>
+        <input type="text" id="memberSearchInput" placeholder="Üye adı giriniz...">
+        <button id="memberAddButton">Üye Ekle</button>
+        <button id="memberDeleteButton">Üye Sil</button>
+        <button id="memberUpdateButton">Üye Güncelle</button>
+        <table id="membersTable">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Üye Numarası</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Yaş</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div id="memberAddForm" class="form-container">
+        <h2>Üye Ekle</h2>
+        <form id="memberForm">
+            <label for="memberName">Adı:</label>
+            <input type="text" id="memberName" required>
+
+            <label for="memberLastName">Soyadı:</label>
+            <input type="text" id="memberLastName" required>
+
+            <label for="memberAge">Yaşı:</label>
+            <input type="text" id="memberAge" required>
+
+            <button type="button" id="memberSaveButton">Kaydet</button>
+            <button type="button" id="cancelButton">İptal</button>
+        </form>
+    </div>
+    <div id="memberUpdateForm" class="form-container">
+        <h2>Üye Güncelle</h2>
+        <form id="updateMemberForm">
+            <input type="hidden" id="updateMemberId">
+
+            <label for="updateMemberName">Adı:</label>
+            <input type="text" id="updateMemberName" required>
+
+            <label for="updateMemberLastName">Soyadı:</label>
+            <input type="text" id="updateMemberLastName" required>
+
+            <label for="updateMemberAge">Yaşı:</label>
+            <input type="text" id="updateMemberAge" required>
+
+            <button type="button" id="memberUpdateSaveButton">Güncelle</button>
+            <button type="button" id="cancelUpdateButton">İptal</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
