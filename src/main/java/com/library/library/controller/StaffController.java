@@ -55,4 +55,9 @@ public class StaffController {
     public List<Staff> searchStaffsByPartialName(@PathVariable String partialStaffName) {
         return staffService.searchStaffsByPartialName(partialStaffName);
     }
+
+    @GetMapping("/search")
+    public List<Staff> searchStaffs(@RequestParam(name = "searchTerm") String searchTerm) {
+        return staffService.searchStaffByPartialNameOrLastName(searchTerm);
+    }
 }

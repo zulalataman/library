@@ -124,3 +124,17 @@ nav a:hover {
     margin: 0 auto;
     padding: 20px;
 }
+#staffSearchInput {
+    top: 220px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 600px;
+    margin-left: 50px;
+}
+
+#staffSearchInput:focus {
+    outline: none;
+    border-color: #4CAF50; /* Veya başka bir vurgu rengi belirleyebilirsiniz */
+}

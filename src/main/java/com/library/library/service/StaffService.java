@@ -1,5 +1,6 @@
 package com.library.library.service;
 
+import com.library.library.model.Member;
 import com.library.library.model.Staff;
 import com.library.library.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,9 @@ public class StaffService {
 
     public List<Staff> searchStaffsByPartialName(String partialStaffName) {
         return staffRepository.findByStaffNameContainingIgnoreCase(partialStaffName);
+    }
+
+    public List<Staff> searchStaffByPartialNameOrLastName(String searchTerm) {
+        return staffRepository.findByStaffNameOrStaffLastNameContainingIgnoreCase(searchTerm);
     }
 }

@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const staffUpdateSaveButton = document.getElementById("staffUpdateSaveButton");
     const cancelUpdateButton = document.getElementById("cancelUpdateButton");
     const updateStaffIdInput = document.getElementById("updateStaffId");
+    const staffSearchInput = document.getElementById("staffSearchInput");
 
     staffGet();
 
@@ -33,8 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
         staffAddForm.style.display = "none";
     });
 
-    cancelUpdateButton.addEventListener("click", function (){
-        staffUpdateForm.style.display="none";
+    cancelUpdateButton.addEventListener("click", function () {
+        staffUpdateForm.style.display = "none";
     })
 
     staffSaveButton.addEventListener("click", function () {
@@ -208,5 +209,65 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             })
             .catch(error => console.error('Görevli bilgileri alınamadı', error));
+    }
+
+    staffSearchInput.addEventListener("input", function () {
+        const searchTerm = staffSearchInput.value;
+
+        if (searchTerm || searchTerm.length >= 2) {
+            searchStaffsByPartialNameOrLastName(searchTerm);
+        } else {
+            location.reload(true);
+        }
+    });
+
+    function searchStaffsByPartialNameOrLastName(searchTerm) {
+        const urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('searchTerm', searchTerm);
+
+        fetch(`/api/staff/search?${urlSearchParams.toString()}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                clearTable();
+
+                const tableBody = document.getElementById('staffsTable').getElementsByTagName('tbody')[0];
+                data.forEach(staff => {
+                    const row = tableBody.insertRow();
+                    row.dataset.staffId = staff.staffId;
+                    const checkboxCell = row.insertCell(0);
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'staff-checkbox';
+                    checkboxCell.appendChild(checkbox);
+
+                    const staffNameCell = row.insertCell(1);
+                    staffNameCell.textContent = staff.staffName;
+
+                    const staffLastNameCell = row.insertCell(2);
+                    staffLastNameCell.textContent = staff.staffLastName;
+
+                    const userNameCell = row.insertCell(3);
+                    userNameCell.textContent = staff.userName;
+
+                    const userPasswordCell = row.insertCell(4);
+                    userPasswordCell.textContent = staff.userPassword;
+
+                    const staffDutyCell = row.insertCell(5);
+                    staffDutyCell.textContent = staff.staffDuty;
+                });
+            })
+            .catch(error => console.error('Üye arama hatası:', error));
+    }
+
+    function clearTable() {
+        const tableBody = document.getElementById('staffsTable').getElementsByTagName('tbody')[0];
+        if (tableBody) {
+            tableBody.innerHTML = ''; // Mevcut içeriği temizle
+        }
     }
 });
