@@ -47,8 +47,11 @@ public class BorrowedBookService {
         }
     }
 
-    public void deleteBorrowedBook(Long borrowedBookId) {
-        borrowedBookRepository.deleteById(borrowedBookId);
+    public String deleteBorrowedBook(List<Long> borrowedBookIds) {
+        for (Long borrowedBookId: borrowedBookIds){
+            borrowedBookRepository.deleteById(borrowedBookId);
+        }
+        return "{\"message\":\"Seçilen teslim alındı!!\"}";
     }
 
     public Optional<BorrowedBook> getBorrowedBookById(Long borrowedBookId) {

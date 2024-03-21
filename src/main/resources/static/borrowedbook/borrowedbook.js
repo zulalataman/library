@@ -78,29 +78,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function deleteBooks(borrowBookIdsToDelete) {
-        const apiUrl = '/api/borrowedbook/return-borrowed-book/';  // Replace this with your actual API endpoint
+        const apiUrl = '/api/borrowedbook/return-borrowed-books/';  // API endpointinizi gerçek bir adresle değiştirin
 
         fetch(apiUrl + borrowBookIdsToDelete.join(','), {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',  // Adjust content type based on your API requirements
+                'Content-Type': 'application/json',  // API gereksinimlerine göre içerik türünü ayarlayın
             },
         })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return true;
+                return response.json();
             })
             .then(data => {
-                console.log('Ödünç kitap başarıyla teslim alındı:', data);
+                console.log('Books deleted successfully:', data);
                 location.reload(true);
             })
             .catch(error => {
-                console.error('Ödünç kitap teslim alınırken hata:', error);
-                alert('Kitap teslim alınırken bir hata oluştu. Lütfen tekrar deneyiniz.');
+                console.error('Error deleting books:', error);
+                alert('Error deleting books. Please try again.');
             });
     }
+
     function borrowedBookGet() {
         fetch('/api/borrowedbook/borrows')
             .then(response => response.json())

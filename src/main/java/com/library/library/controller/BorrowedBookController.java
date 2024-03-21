@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -56,16 +57,19 @@ public class BorrowedBookController {
         return borrowedBookService.borrowBook(json.getLong("memberId"), json.getLong("bookId"), borrowingDateTime, returnDateTime);
     }
 
-    @DeleteMapping("/return-borrowed-book/{borrowedBookId}")
-    public void deleteBorrowedBook(@PathVariable Long borrowedBookId) {
-        BorrowedBook borrowedBook = borrowedBookService.getBorrowedBookById(borrowedBookId)
-                .orElseThrow(() -> new RuntimeException("Ödünç alınan kitap bulunamadı."));
+    @DeleteMapping("/return-borrowed-books/{borrowedBookIds}")
+    public String deleteBorrowedBook(@PathVariable List<Long> borrowedBookIds) {
 
-        Book book = borrowedBook.getBook();
-        book.setStock(book.getStock() + 1);
-        bookService.updateBook(book.getBookId(), book);
+        for (Long borrowedBookId : borrowedBookIds) {
+            BorrowedBook borrowedBook = borrowedBookService.getBorrowedBookById(borrowedBookId)
+                    .orElseThrow(() -> new RuntimeException("Ödünç alınan kitap bulunamadı."));
 
-        borrowedBookService.deleteBorrowedBook(borrowedBookId);
+            Book book = borrowedBook.getBook();
+            book.setStock(book.getStock() + 1);
+            bookService.updateBook(book.getBookId(), book);
+
+        }
+        return borrowedBookService.deleteBorrowedBook(borrowedBookIds);
     }
 
     @GetMapping("/borrows")
