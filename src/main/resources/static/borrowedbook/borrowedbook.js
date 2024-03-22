@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const borrowedBookForm = document.getElementById("borrowedBookForm");
     const borrowBookForm = document.getElementById("borrowBookForm");
     const memberIdInput = document.getElementById("memberId");
-    const bookIdInput = document.getElementById("bookId");
+    const bookSelect = document.getElementById("bookId");
     const borrowingDateInput = document.getElementById("borrowingDate");
     const returnDateInput = document.getElementById("returnDate");
     const borrowBookSaveButton = document.getElementById("borrowBookSaveButton");
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     borrowBookSaveButton.addEventListener("click", function () {
         const memberId = memberIdInput.value;
-        const bookId = bookIdInput.value;
+        const bookId = bookSelect.value;
         const borrowingDate = borrowingDateInput.value;
         const returnDate = returnDateInput.value;
 
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log('Ödünç kitap başarıya eklendi:', data);
 
                     memberIdInput.value = "";
-                    bookIdInput.value = "";
+                    bookSelect.value = "";
                     borrowingDateInput.value = "";
                     returnDateInput.value = "";
 
@@ -62,6 +62,22 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Lütfen tüm alanları doldurun.");
         }
     });
+
+    fetch('/api/book/books')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(book => {
+                const option=document.createElement("option");
+                option.value=book.bookId;
+                option.textContent=book.bookName;
+                bookSelect.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Kitaplar alınamadı:', error);
+            alert('Kitaplar alınamadı lütfen tekrar deneyiniz.')
+        })
+
 
     returnBookButton.addEventListener("click", function () {
         const selectedCheckboxes = document.querySelectorAll('.borrowedbook-checkbox:checked');
@@ -115,25 +131,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     checkbox.className = 'borrowedbook-checkbox';
                     checkboxCell.appendChild(checkbox);
 
-                    const memberIdCell = row.insertCell(1);
-                    memberIdCell.textContent = borrowedbook.member.memberId;
-
-                    const memberNameCell = row.insertCell(2);
+                    const memberNameCell = row.insertCell(1);
                     memberNameCell.textContent = borrowedbook.member.memberName;
 
-                    const memberLastNameCell = row.insertCell(3);
+                    const memberLastNameCell = row.insertCell(2);
                     memberLastNameCell.textContent = borrowedbook.member.memberLastName;
 
-                    const bookIdCell = row.insertCell(4);
+                    const bookIdCell = row.insertCell(3);
                     bookIdCell.textContent = borrowedbook.book.bookId;
 
-                    const bookNameCell = row.insertCell(5);
+                    const bookNameCell = row.insertCell(4);
                     bookNameCell.textContent = borrowedbook.book.bookName;
 
-                    const borrowingDateCell = row.insertCell(6);
+                    const borrowingDateCell = row.insertCell(5);
                     borrowingDateCell.textContent = borrowedbook.borrowingDate;
 
-                    const returnDateCell = row.insertCell(7);
+                    const returnDateCell = row.insertCell(6);
                     returnDateCell.textContent = borrowedbook.returnDate;
 
                 });
