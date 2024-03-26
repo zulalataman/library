@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelUpdateButton = document.getElementById("cancelUpdateButton");
     const bookUpdateButton = document.getElementById("bookUpdateButton");
     const bookSearchInput = document.getElementById("bookSearchInput");
+    const modal = document.getElementById("bookModal");
+    const confirmDeleteButton = document.getElementById("confirmDeleteButton");
+    const cancelDeleteButton = document.getElementById("cancelDeleteButton");
 
 
     bookGet();
@@ -85,12 +88,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         if (bookIdsToDelete.length > 0) {
-            if (confirm("Seçili kitapları silme istiyor musunuz?")) {
-                deleteBooks(bookIdsToDelete);
-            }
+            modal.style.display = "block"
         } else {
             alert('Lütfen silmek için en az bir kitap seçin.');
         }
+    });
+
+    confirmDeleteButton.addEventListener("click", function () {
+        const selectedCheckboxes = document.querySelectorAll('.book-checkbox:checked');
+        const bookIdsToDelete = Array.from(selectedCheckboxes).map(checkbox => {
+            const row = checkbox.closest('tr');
+            return row.dataset.bookId;
+        });
+        deleteBooks(bookIdsToDelete);
+        modal.style.display = "none"
+    });
+
+    cancelDeleteButton.addEventListener("click", function () {
+        modal.style.display = "none";
     });
 
     function deleteBooks(bookIdsToDelete) {
