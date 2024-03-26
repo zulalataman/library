@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelUpdateButton = document.getElementById("cancelUpdateButton");
     const updateStaffIdInput = document.getElementById("updateStaffId");
     const staffSearchInput = document.getElementById("staffSearchInput");
+    const modal = document.getElementById("staffModal");
+    const confirmDeleteButton = document.getElementById("confirmDeleteButton");
+    const cancelDeleteButton = document.getElementById("cancelDeleteButton")
 
     staffGet();
 
@@ -88,10 +91,25 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         if (staffIdsToDelete.length > 0) {
-            deleteStaffs(staffIdsToDelete);
+            modal.style.display = "block"
         } else {
             alert('Lütfen silmek için en az bir görevli seçin.');
         }
+    });
+
+    confirmDeleteButton.addEventListener("click", function () {
+        const selectedCheckboxes = document.querySelectorAll('.staff-checkbox:checked');
+        const staffIdsToDelete = Array.from(selectedCheckboxes).map(checkbox => {
+            const row = checkbox.closest('tr');
+            return row.dataset.staffId;
+        });
+
+        deleteStaffs(staffIdsToDelete);
+        modal.style.display = "none";
+    });
+
+    cancelDeleteButton.addEventListener("click", function () {
+        modal.style.display = "none";
     });
 
     function deleteStaffs(staffIdsToDelete) {
