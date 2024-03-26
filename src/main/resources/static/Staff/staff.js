@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const staffAddButton = document.getElementById("staffAddButton");
     const staffDeleteButton = document.getElementById("staffDeleteButton");
     const staffAddForm = document.getElementById("staffAddForm");
-    const staffForm = document.getElementById("staffForm");
     const staffNameInput = document.getElementById("staffName");
     const staffLastNameInput = document.getElementById("staffLastName");
     const userNameInput = document.getElementById("userName");
@@ -13,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelButton = document.getElementById("cancelButton");
     const staffUpdateButton = document.getElementById("staffUpdateButton");
     const staffUpdateForm = document.getElementById("staffUpdateForm");
-    const staffFormUpdate = document.getElementById("staffFormUpdate");
     const staffNameUpdateInput = document.getElementById("staffNameUpdate");
     const staffLastNameUpdateInput = document.getElementById("staffLastNameUpdate");
     const userNameUpdateInput = document.getElementById("userNameUpdate");
@@ -102,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(apiUrl + staffIdsToDelete.join(','), {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',  // Adjust content type based on your API requirements
+                'Content-Type': 'application/json',
             },
         })
             .then(response => response.json())
@@ -267,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function clearTable() {
         const tableBody = document.getElementById('staffsTable').getElementsByTagName('tbody')[0];
         if (tableBody) {
-            tableBody.innerHTML = ''; // Mevcut içeriği temizle
+            tableBody.innerHTML = '';
         }
     }
 });

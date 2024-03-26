@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const membersTable = document.getElementById("membersTable").getElementsByTagName('tbody')[0];
     const memberAddButton = document.getElementById("memberAddButton");
     const memberAddForm = document.getElementById("memberAddForm");
-    const memberForm = document.getElementById("memberForm");
     const memberNameInput = document.getElementById("memberName");
     const memberLastNameInput = document.getElementById("memberLastName");
     const memberAgeInput = document.getElementById("memberAge");
@@ -10,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelButton = document.getElementById("cancelButton");
     const memberDeleteButton = document.getElementById("memberDeleteButton");
     const memberUpdateForm = document.getElementById("memberUpdateForm");
-    const updateMemberForm = document.getElementById("updateMemberForm");
     const updateMemberIdInput = document.getElementById("updateMemberId");
     const updateMemberNameInput = document.getElementById("updateMemberName");
     const updateMemberLastNameInput = document.getElementById("updateMemberLastName");
@@ -19,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelUpdateButton = document.getElementById("cancelUpdateButton");
     const memberUpdateButton = document.getElementById("memberUpdateButton");
     const memberSearchInput = document.getElementById("memberSearchInput");
+    const modal = document.getElementById("memberModal");
+    const confirmDeleteButton = document.getElementById("confirmDeleteButton");
+    const cancelDeleteButton = document.getElementById("cancelDeleteButton")
 
     memberGet();
 
@@ -30,8 +31,8 @@ document.addEventListener("DOMContentLoaded", function () {
         memberAddForm.style.display = "none";
     });
 
-    cancelUpdateButton.addEventListener("click", function (){
-        memberUpdateForm.style.display="none";
+    cancelUpdateButton.addEventListener("click", function () {
+        memberUpdateForm.style.display = "none";
     });
 
     memberSaveButton.addEventListener("click", function () {
@@ -76,29 +77,44 @@ document.addEventListener("DOMContentLoaded", function () {
     memberDeleteButton.addEventListener("click", function () {
         const selectedCheckboxes = document.querySelectorAll('.member-checkbox:checked');
         const memberIdsToDelete = Array.from(selectedCheckboxes).map(checkbox => {
-            const row = checkbox.closest('tr'); //checkboxa en yakın satırı bulur
-            return row.dataset.memberId; //kitap ıdsini alır
+            const row = checkbox.closest('tr');
+            return row.dataset.memberId;
         });
 
         if (memberIdsToDelete.length > 0) {
-            deleteMembers(memberIdsToDelete);
+            modal.style.display = "block"
         } else {
             alert('Lütfen silmek için en az bir üye seçin.');
         }
     });
 
+    confirmDeleteButton.addEventListener("click", function () {
+        const selectedCheckboxes = document.querySelectorAll('.member-checkbox:checked');
+        const memberIdsToDelete = Array.from(selectedCheckboxes).map(checkbox => {
+            const row = checkbox.closest('tr');
+            return row.dataset.memberId;
+        });
+
+        deleteMembers(memberIdsToDelete);
+        modal.style.display = "none";
+    });
+
+    cancelDeleteButton.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
     function deleteMembers(memberIdsToDelete) {
-        const apiUrl = '/api/member/deletemember/';  // Replace this with your actual API endpoint
+        const apiUrl = '/api/member/deletemember/';
 
         fetch(apiUrl + memberIdsToDelete.join(','), {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',  // Adjust content type based on your API requirements
+                'Content-Type': 'application/json',
             },
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Yanıt oluşturulurken bir hata oluştu.');
                 }
                 return response.json();
             })
@@ -124,11 +140,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(member => {
 
                     updateMemberIdInput.value = member.memberId;
-                    updateMemberNameInput.value=member.memberName;
+                    updateMemberNameInput.value = member.memberName;
                     updateMemberLastNameInput.value = member.memberLastName;
-                    updateMemberAgeInput.value=member.memberAge;
+                    updateMemberAgeInput.value = member.memberAge;
 
-                    memberUpdateForm.style.display ="block";
+                    memberUpdateForm.style.display = "block";
                 })
                 .catch(error => console.error('Üye detayları alınamadı:', error));
         } else {
@@ -136,13 +152,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    memberUpdateSaveButton.addEventListener("click", function (){
+    memberUpdateSaveButton.addEventListener("click", function () {
         const memberId = updateMemberIdInput.value;
         const updatedMemberName = updateMemberNameInput.value;
         const updatedMemberLastName = updateMemberLastNameInput.value;
         const updatedMemberAge = updateMemberAgeInput.value;
 
-        if (updatedMemberName && updatedMemberLastName && updatedMemberAge){
+        if (updatedMemberName && updatedMemberLastName && updatedMemberAge) {
             const updatedMemberData = {
                 memberName: updatedMemberName,
                 memberLastName: updatedMemberLastName,
@@ -159,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(response => response.json())
                 .then(data => {
                     console.log('Üye güncellendi:', data);
-                    memberUpdateForm.style.display="none";
+                    memberUpdateForm.style.display = "none";
                     location.reload(true);
                 })
                 .catch(error => {
@@ -170,6 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Lütfen tüm alanları doldurunuz.");
         }
     });
+
     function memberGet() {
         fetch('/api/member/members')
             .then(response => response.json())
@@ -249,10 +266,11 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => console.error('Üye arama hatası:', error));
     }
+
     function clearTable() {
         const tableBody = document.getElementById('membersTable').getElementsByTagName('tbody')[0];
         if (tableBody) {
-            tableBody.innerHTML = ''; // Mevcut içeriği temizle
+            tableBody.innerHTML = '';
         }
     }
 });

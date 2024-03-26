@@ -3,11 +3,10 @@ package com.library.library.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-@Table (name = "borrowedbook")
+@Table(name = "borrowedbook")
 public class BorrowedBook {
 
     @Id
