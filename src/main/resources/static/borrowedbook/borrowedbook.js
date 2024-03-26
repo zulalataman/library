@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const borrowBookButton = document.getElementById("borrowBookButton");
     const returnBookButton = document.getElementById("returnBookButton");
     const borrowedBookForm = document.getElementById("borrowedBookForm");
-    const borrowBookForm = document.getElementById("borrowBookForm");
     const memberIdInput = document.getElementById("memberId");
     const bookSelect = document.getElementById("bookId");
     const borrowingDateInput = document.getElementById("borrowingDate");
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Ödünç kitap başarıya eklendi:', data);
+                    console.log('Ödünç kitap başarıya verildi:', data);
 
                     memberIdInput.value = "";
                     bookSelect.value = "";
@@ -67,22 +66,22 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(response => response.json())
         .then(data => {
             data.forEach(book => {
-                const option=document.createElement("option");
-                option.value=book.bookId;
-                option.textContent=book.bookName;
+                const option = document.createElement("option");
+                option.value = book.bookId;
+                option.textContent = book.bookName;
                 bookSelect.appendChild(option);
             });
         })
         .catch(error => {
             console.error('Kitaplar alınamadı:', error);
-            alert('Kitaplar alınamadı lütfen tekrar deneyiniz.')
+            alert('Kitaplar alınamadı, lütfen tekrar deneyiniz.')
         })
 
 
     returnBookButton.addEventListener("click", function () {
         const selectedCheckboxes = document.querySelectorAll('.borrowedbook-checkbox:checked');
         const borrowBookIdsToDelete = Array.from(selectedCheckboxes).map(checkbox => {
-            const row = checkbox.closest('tr'); //checkboxa en yakın satırı bulur
+            const row = checkbox.closest('tr');
             return row.dataset.borrowedbookId;
         });
 
@@ -94,27 +93,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function deleteBooks(borrowBookIdsToDelete) {
-        const apiUrl = '/api/borrowedbook/return-borrowed-books/';  // API endpointinizi gerçek bir adresle değiştirin
+        const apiUrl = '/api/borrowedbook/return-borrowed-books/';
 
         fetch(apiUrl + borrowBookIdsToDelete.join(','), {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',  // API gereksinimlerine göre içerik türünü ayarlayın
+                'Content-Type': 'application/json',
             },
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Yanıt oluşturulurken bir hata oluştu.');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log('Books deleted successfully:', data);
+                console.log('Ödünç kitap başarıyla teslim alındı:', data);
                 location.reload(true);
             })
             .catch(error => {
-                console.error('Error deleting books:', error);
-                alert('Error deleting books. Please try again.');
+                console.error('Teslim alma hatası:', error);
+                alert('Kitap teslim alınamadı. Lütfen tekrar deneyiniz.');
             });
     }
 

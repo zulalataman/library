@@ -17,7 +17,7 @@
     <a href="http://localhost:8080/borrowedbook/borrowedbook.html">Ödünç Kitap İşlemleri</a>
 </nav>
 <div class="container">
-<h1>ÜYE LİSTESİ</h1>
+    <h1>ÜYE LİSTESİ</h1>
     <div>
         <input type="text" id="memberSearchInput" placeholder="Üye adı giriniz...">
         <button id="memberAddButton">Üye Ekle</button>
@@ -36,6 +36,15 @@
             <tbody>
             </tbody>
         </table>
+    </div>
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <p>Seçili üyeleri silmek istiyor musunuz?</p>
+            <div>
+                <button id="confirmDeleteButton">Evet</button>
+                <button id="cancelDeleteButton">Hayır</button>
+            </div>
+        </div>
     </div>
     <div id="memberAddForm" class="form-container">
         <h2>Üye Ekle</h2>

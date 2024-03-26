@@ -89,12 +89,15 @@ input {
     padding: 8px;
     margin-bottom: 10px;
 }
+
 h1 {
     text-align: center;
 }
+
 body {
     font-family: Arial, sans-serif;
 }
+
 header {
     background-color: #4CAF50;
     padding: 10px;
@@ -102,27 +105,32 @@ header {
     color: white;
     font-size: 24px;
 }
+
 nav {
     display: flex;
     justify-content: space-around;
     background-color: #333;
     padding: 10px;
 }
+
 nav a {
     color: white;
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
 }
+
 nav a:hover {
     background-color: #ddd;
     color: black;
 }
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
+
 #memberSearchInput {
     top: 220px;
     padding: 10px;
@@ -135,5 +143,33 @@ nav a:hover {
 
 #memberSearchInput:focus {
     outline: none;
-    border-color: #4CAF50; /* Veya başka bir vurgu rengi belirleyebilirsiniz */
+    border-color: #4CAF50;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    text-align: center;
+}
+
+.modal-content div {
+    margin-top: 20px;
+}
+
+.modal-content button {
+    margin: 0 10px;
 }

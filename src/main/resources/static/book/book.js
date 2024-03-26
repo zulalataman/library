@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const booksTable = document.getElementById("booksTable").getElementsByTagName('tbody')[0];
     const bookAddButton = document.getElementById("bookAddButton");
     const bookAddForm = document.getElementById("bookAddForm");
-    const bookForm = document.getElementById("bookForm");
     const bookNameInput = document.getElementById("bookName");
     const writerInput = document.getElementById("writer");
     const publisherInput = document.getElementById("publisher");
@@ -11,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const cancelButton = document.getElementById("cancelButton");
     const bookDeleteButton = document.getElementById("bookDeleteButton");
     const bookUpdateForm = document.getElementById("bookUpdateForm");
-    const updateBookForm = document.getElementById("updateBookForm");
     const updateBookIdInput = document.getElementById("updateBookId");
     const updateBookNameInput = document.getElementById("updateBookName");
     const updateWriterInput = document.getElementById("updateWriter");
@@ -60,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Book added successfully:', data);
+                    console.log('Kitap ekleme başarılı:', data);
 
                     bookNameInput.value = "";
                     writerInput.value = "";
@@ -71,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     location.reload(true);
                 })
                 .catch(error => {
-                    console.error('Error adding book:', error);
+                    console.error('Kitap eklenirken hata:', error);
                     alert('Kitap eklenemedi. Lütfen tekrar deneyiniz..');
                 });
         } else {
@@ -82,39 +80,41 @@ document.addEventListener("DOMContentLoaded", function () {
     bookDeleteButton.addEventListener("click", function () {
         const selectedCheckboxes = document.querySelectorAll('.book-checkbox:checked');
         const bookIdsToDelete = Array.from(selectedCheckboxes).map(checkbox => {
-            const row = checkbox.closest('tr'); //checkboxa en yakın satırı bulur
-            return row.dataset.bookId; //kitap ıdsini alır
+            const row = checkbox.closest('tr');
+            return row.dataset.bookId;
         });
 
         if (bookIdsToDelete.length > 0) {
-            deleteBooks(bookIdsToDelete);
+            if (confirm("Seçili kitapları silme istiyor musunuz?")) {
+                deleteBooks(bookIdsToDelete);
+            }
         } else {
             alert('Lütfen silmek için en az bir kitap seçin.');
         }
     });
 
     function deleteBooks(bookIdsToDelete) {
-        const apiUrl = '/api/book/deletebook/';  // Replace this with your actual API endpoint
+        const apiUrl = '/api/book/deletebook/';
 
         fetch(apiUrl + bookIdsToDelete.join(','), {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',  // Adjust content type based on your API requirements
+                'Content-Type': 'application/json',
             },
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Yanıt oluşturulurken bir hata oluştu.');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log('Books deleted successfully:', data);
+                console.log('Kitap başarıyla silindi', data);
                 location.reload(true);
             })
             .catch(error => {
-                console.error('Error deleting books:', error);
-                alert('Error deleting books. Please try again.');
+                console.error('Kitap silinirken hata:', error);
+                alert('Kitap silinemedi. Lütfen tekrar deneyiniz.');
             });
     }
 
@@ -214,24 +214,19 @@ document.addEventListener("DOMContentLoaded", function () {
     bookSearchInput.addEventListener("input", function () {
         const partialBookName = bookSearchInput.value;
 
-        // Boş bir arama veya belirli bir uzunlukta bir arama yapmak istendiğinde arama yap
         if (partialBookName || partialBookName.length >= 2) {
             searchBooksByPartialName(partialBookName);
         } else {
-            // Boş arama yapıldığında tüm kayıtları getir
             location.reload(true);
         }
     });
 
-// Kitapları kısmi isme göre aramak için fonksiyon
     function searchBooksByPartialName(partialBookName) {
         fetch(`/api/book/searchByPartialName/${partialBookName}`)
             .then(response => response.json())
             .then(data => {
-                // Tabloyu temizle
                 clearTable();
 
-                // Arama sonuçlarıyla tabloyu doldur
                 const tableBody = document.getElementById('booksTable').getElementsByTagName('tbody')[0];
                 data.forEach(book => {
                     const row = tableBody.insertRow();
@@ -261,11 +256,10 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Kitap arama hatası:', error));
     }
 
-    // Tabloyu temizlemek için fonksiyon
     function clearTable() {
         const tableBody = document.getElementById('booksTable').getElementsByTagName('tbody')[0];
         if (tableBody) {
-            tableBody.innerHTML = ''; // Mevcut içeriği temizle
+            tableBody.innerHTML = '';
         }
     }
 });
