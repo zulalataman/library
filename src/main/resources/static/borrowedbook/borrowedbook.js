@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const returnDateInput = document.getElementById("returnDate");
     const borrowBookSaveButton = document.getElementById("borrowBookSaveButton");
     const cancelButton = document.getElementById("cancelButton");
+    const modal = document.getElementById("borrowedbookModal");
+    const confirmDeleteButton = document.getElementById("confirmDeleteButton");
+    const cancelDeleteButton = document.getElementById("cancelDeleteButton");
 
     borrowedBookGet();
 
@@ -86,13 +89,27 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         if (borrowBookIdsToDelete.length > 0) {
-            deleteBooks(borrowBookIdsToDelete);
+            modal.style.display = "block";
         } else {
             alert('Lütfen silmek için en az bir ödünç verilen kitap seçin.');
         }
     });
 
-    function deleteBooks(borrowBookIdsToDelete) {
+    confirmDeleteButton.addEventListener("click", function () {
+        const selectedCheckboxes = document.querySelectorAll('.borrowedbook-checkbox:checked');
+        const borrowBookIdsToDelete = Array.from(selectedCheckboxes).map(checkbox => {
+            const row = checkbox.closest('tr');
+            return row.dataset.borrowedbookId;
+        });
+        returnBooks(borrowBookIdsToDelete);
+        modal.style.display = "none";
+    });
+
+    cancelDeleteButton.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    function returnBooks(borrowBookIdsToDelete) {
         const apiUrl = '/api/borrowedbook/return-borrowed-books/';
 
         fetch(apiUrl + borrowBookIdsToDelete.join(','), {
